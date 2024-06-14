@@ -1,0 +1,41 @@
+Screen {
+    align: center middle;
+}
+
+#main_container{
+    width: 70%;
+}
+
+ListView {
+    width: 30;
+    height: auto;
+    margin: 2 2;
+}
+
+Label {
+    text-align: center;
+    padding: 1 2;
+    width: 100%;
+}
+
+#left_container{
+    dock: left;
+    height: auto;
+    width: auto;
+    align-vertical: middle;
+}
+
+#center_container{
+    align: center middle;
+    dock: top;
+    align-horizontal: center;
+    width: auto;
+    height: auto;
+}
+
+#right_container{
+    dock: right;
+    height: auto;
+    width: auto;
+    align-vertical: middle;
+}
