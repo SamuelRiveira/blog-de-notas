@@ -1,9 +1,15 @@
+# pendientes.py
+
 class Pendiente:
-    def __init__(self, pendiente:str) -> None:
-        self.pendiente = pendiente
+    def __init__(self, titulo: str, descripcion: str) -> None:
+        self.titulo = titulo
+        self.descripcion = descripcion
 
     def __str__(self) -> str:
-        return self.pendiente
+        return f"{self.titulo} - {self.descripcion}"
     
-    def leer(self) -> str:
-        return self.pendiente
+    def leer_titulo(self) -> str:
+        return self.titulo
+    
+    def leer_descripcion(self) -> str:
+        return self.descripcion

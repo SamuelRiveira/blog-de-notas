@@ -1,4 +1,4 @@
-# listapendiente.py
+# listaPendiente.py
 
 from coleccionPendientes import ColeccionPendientes
 from pendientes import Pendiente
@@ -10,15 +10,15 @@ class ListaPendientes:
     def obtener_pendientes(self):
         return self.coleccion.leer()
 
-    def agregar_pendiente(self, descripcion):
-        pendiente = Pendiente(descripcion)
-        self.coleccion.insertar(pendiente)
-        print(f"Pendiente '{descripcion}' agregado.")
+    def agregar_pendiente(self, titulo, descripcion):
+        pendiente = Pendiente(titulo, descripcion)
+        self.coleccion.insertar(titulo, descripcion)
+        print(f"Pendiente '{titulo}' agregado.")
 
-    def actualizar_pendiente(self, old_descripcion, new_descripcion):
-        self.coleccion.actualizar(old_descripcion, new_descripcion)
-        print(f"Pendiente '{old_descripcion}' actualizado a '{new_descripcion}'.")
+    def actualizar_pendiente(self, id, new_titulo, new_descripcion):
+        self.coleccion.actualizar(id, new_titulo, new_descripcion)
+        print(f"Pendiente ID '{id}' actualizado a '{new_titulo}'.")
 
-    def eliminar_pendiente(self, descripcion):
-        self.coleccion.borrar(Pendiente(descripcion))
-        print(f"Pendiente '{descripcion}' eliminado.")
+    def eliminar_pendiente(self, id):
+        self.coleccion.borrar(id)
+        print(f"Pendiente ID '{id}' eliminado.")

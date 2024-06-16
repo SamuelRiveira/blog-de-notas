@@ -1,24 +1,24 @@
-# listaTerminado.py
+# listaTerminados.py
 
 from coleccionTerminado import ColeccionTerminados
-from terminados import Terminado
+from pendientes import Pendiente
 
 class ListaTerminados:
     def __init__(self):
-        self.coleccion = ColeccionTerminados()  # Corregido el nombre de la clase (mayúscula 'C')
+        self.coleccion = ColeccionTerminados()
 
     def obtener_terminados(self):
         return self.coleccion.leer()
 
-    def agregar_terminado(self, descripcion):
-        terminado = Terminado(descripcion)
-        self.coleccion.insertar(terminado)
-        print(f"Terminado '{descripcion}' agregado.")
+    def agregar_terminado(self, titulo, descripcion):
+        terminado = Pendiente(titulo, descripcion)
+        self.coleccion.insertar(titulo, descripcion)
+        print(f"Terminado '{titulo}' agregado.")
 
-    def actualizar_terminado(self, old_descripcion, new_descripcion):
-        self.coleccion.actualizar(old_descripcion, new_descripcion)
-        print(f"Terminado '{old_descripcion}' actualizado a '{new_descripcion}'.")
+    def actualizar_terminado(self, id, new_titulo, new_descripcion):
+        self.coleccion.actualizar(id, new_titulo, new_descripcion)
+        print(f"Terminado ID '{id}' actualizado a '{new_titulo}'.")
 
-    def eliminar_terminado(self, descripcion):
-        self.coleccion.borrar(Terminado(descripcion))
-        print(f"Terminado '{descripcion}' eliminado.")
+    def eliminar_terminado(self, id):
+        self.coleccion.borrar(id)
+        print(f"Terminado ID '{id}' eliminado.")

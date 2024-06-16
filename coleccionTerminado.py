@@ -1,28 +1,29 @@
-# coleccionTerminado.py
+# coleccionTerminados.py
 
 from db import Db
-from terminados import Terminado
 
 SQLMDLCREATE = '''
     CREATE TABLE IF NOT EXISTS terminados (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        terminado TEXT NOT NULL
+        titulo TEXT NOT NULL,
+        pendiente TEXT NOT NULL
     )
 '''
 
 SQLDDLSELECT = '''
-    SELECT * FROM terminados
+    SELECT id, titulo, pendiente FROM terminados
 '''
 
-SQLDDLINSERT = '''INSERT INTO terminados (terminado) VALUES '''
-# Hay que concatenar ('terminado')
+SQLDDLINSERT = '''INSERT INTO terminados (titulo, pendiente) VALUES '''
+# Hay que concatenar ('titulo', 'pendiente')
 
-SQLDDLUPDATEPART1 = '''UPDATE terminados SET terminado = "'''
-SQLDDLUPDATEPART2 = '''" WHERE id = '''
+SQLDDLUPDATEPART1 = '''UPDATE terminados SET titulo = "'''
+SQLDDLUPDATEPART2 = '''", pendiente = "'''
+SQLDDLUPDATEPART3 = '''" WHERE id = '''
 
 SQLDDLDELETE = '''DELETE FROM terminados WHERE id = '''
 
-SQLDDLSELECT1 = '''SELECT id FROM terminados WHERE terminado LIKE '''
+SQLDDLSELECT1 = '''SELECT id FROM terminados WHERE pendiente LIKE '''
 # Hay que concatenar
 
 class ColeccionTerminados:
@@ -33,32 +34,23 @@ class ColeccionTerminados:
         self.con.execute(SQLMDLCREATE)
 
     def leer(self) -> list:
-        """
-        Lee todas las notas terminadas desde la base de datos.
-        Retorna una lista de tuplas (id, terminado).
-        """
         return self.con.execute(SQLDDLSELECT).fetchall()
     
-    def insertar(self, terminado):
-        if self.buscar(terminado) == 0:
-            elstr = "('" + str(terminado) + "')"
+    def insertar(self, titulo, pendiente):
+        if self.buscar(pendiente) == 0:
+            elstr = f"('{titulo}', '{pendiente}')"
             self.con.execute(SQLDDLINSERT + elstr)
 
-    def actualizar(self, oldterminado:str, newterminado:str):
-        id = self.buscar(oldterminado)
-        if id != 0 and self.buscar(newterminado) == 0:
-            elstr = SQLDDLUPDATEPART1 + newterminado 
-            elstr += SQLDDLUPDATEPART2 + str(id)
-            self.con.execute(elstr)
+    def actualizar(self, id, new_titulo, new_pendiente):
+        elstr = f'{SQLDDLUPDATEPART1}{new_titulo}{SQLDDLUPDATEPART2}{new_pendiente}{SQLDDLUPDATEPART3}{id}'
+        self.con.execute(elstr)
 
-    def borrar(self, terminado):
-        id = self.buscar(terminado) 
-        if id != 0:
-            self.con.execute(SQLDDLDELETE + str(id))
+    def borrar(self, id):
+        self.con.execute(SQLDDLDELETE + str(id))
 
-    def buscar(self, terminado:Terminado) -> int:
+    def buscar(self, pendiente:str) -> int:
         resultado = 0
-        elstr = '"' + str(terminado) + '"'
+        elstr = '"' + str(pendiente) + '"'
         res = self.con.execute(SQLDDLSELECT1 + elstr)
         reg = res.fetchone()
         if reg != None:

@@ -1,35 +1,29 @@
-# import os
-# class ObtenerID:
+# interfaz_ventana.py
 
-#     def escribir(self, id):
-#         f = open("mostrarlaid.txt", 'wt')
-#         with f:
-#             f.write(id)
-#             return True
 from textual.app import App, ComposeResult
 from textual.screen import Screen
 from textual.containers import Grid
-from textual.widgets import Button, Static
+from textual.widgets import Button
 
-global index
+global current_description
 
-class ObtenerID():
+class ObtenerDescripcion():
 
-    def __init__ (self, id):
-        self.id = id
-        global index
-        index = str(self.id)
+    def __init__ (self, descripcion):
+        self.descripcion = descripcion
+        global current_description
+        current_description = str(self.descripcion)
 
-    def mostrarid(self):
-        return self.id
+    def mostrar_descripcion(self):
+        return self.descripcion
 
 
 class PendientesScreen(Screen):
 
     def compose(self) -> ComposeResult:
-        global index
+        global current_description
         yield Grid(
-            Button(index , variant="error", id="quit"),
+            Button(current_description, variant="error", id="quit"),  # Mostrar descripción en el botón
             Button("Pendientes", variant="primary", id="cancel"),
             id="dialog",
         )
@@ -37,9 +31,9 @@ class PendientesScreen(Screen):
 class En_ProcesoScreen(Screen):
 
     def compose(self) -> ComposeResult:
-        global index
+        global current_description
         yield Grid(
-            Button(index , variant="error", id="quit"),
+            Button(current_description, variant="error", id="quit"),  # Mostrar descripción en el botón
             Button("En proceso", variant="primary", id="cancel"),
             id="dialog",
         )
@@ -47,9 +41,9 @@ class En_ProcesoScreen(Screen):
 class TerminadosScreen(Screen):
 
     def compose(self) -> ComposeResult:
-        global index
+        global current_description
         yield Grid(
-            Button(index , variant="error", id="quit"),
+            Button(current_description, variant="error", id="quit"),  # Mostrar descripción en el botón
             Button("Terminados", variant="primary", id="cancel"),
             id="dialog",
         )
