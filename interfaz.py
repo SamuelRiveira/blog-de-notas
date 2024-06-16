@@ -18,13 +18,17 @@ from textual.message import Message
 from textual.containers import Container
 from interfaz_ventana import PendientesScreen, En_ProcesoScreen, TerminadosScreen, ObtenerDetalles
 
-class TableApp(App):
+class Notas(App):
 
     CSS_PATH = "interfaz.tcss"
 
     BINDINGS = [
-        Binding(key="Q", action="quit", description="Salir")
+        Binding(key="Q", action="quit", description="Salir"),
+        Binding(key="H", action="action_insertar", description="Insertar")
     ]
+
+    def action_insertar(self):
+        pass
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -32,15 +36,15 @@ class TableApp(App):
         with Container(id="main_container"):
 
             with Container(id="left_container"):
-                yield Label("Lista Pendientes")
+                yield Label("Lista Pendientes", id="listaPendientes")
                 yield ListView(id="list_pendientes")
             
             with Container(id="center_container"):
-                yield Label("Lista En Proceso")
+                yield Label("Lista En Proceso", id="listaEnProceso")
                 yield ListView(id="list_enProceso")
 
             with Container(id="right_container"):
-                yield Label("Lista Terminados")
+                yield Label("Lista Terminados", id="listaTerminados")
                 yield ListView(id="list_terminados")
         
         yield Footer()
@@ -103,5 +107,5 @@ class TableApp(App):
             self.push_screen(TerminadosScreen())
 
 if __name__ == "__main__":
-    app = TableApp()
+    app = Notas()
     app.run()

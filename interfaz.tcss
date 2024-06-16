@@ -23,6 +23,7 @@ Label {
     height: auto;
     width: auto;
     align-vertical: middle;
+    border: round grey
 }
 
 #center_container{
@@ -31,6 +32,7 @@ Label {
     align-horizontal: center;
     width: auto;
     height: auto;
+    border: round grey
 }
 
 #right_container{
@@ -38,4 +40,17 @@ Label {
     height: auto;
     width: auto;
     align-vertical: middle;
+    border: round grey
+}
+
+#listaPendientes{
+    border: hkey grey
+}
+
+#listaEnProceso{
+    border: hkey grey
+}
+
+#listaTerminados{
+    border: hkey grey
 }
