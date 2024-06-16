@@ -23,12 +23,8 @@ class Notas(App):
     CSS_PATH = "interfaz.tcss"
 
     BINDINGS = [
-        Binding(key="Q", action="quit", description="Salir"),
-        Binding(key="H", action="action_insertar", description="Insertar")
+        Binding(key="q", action="quit", description="Salir", key_display="Q")
     ]
-
-    def action_insertar(self):
-        pass
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -36,15 +32,15 @@ class Notas(App):
         with Container(id="main_container"):
 
             with Container(id="left_container"):
-                yield Label("Lista Pendientes", id="listaPendientes")
+                yield Label("Proyectos Pendientes", id="listaPendientes")
                 yield ListView(id="list_pendientes")
             
             with Container(id="center_container"):
-                yield Label("Lista En Proceso", id="listaEnProceso")
+                yield Label("Proyectos En Proceso", id="listaEnProceso")
                 yield ListView(id="list_enProceso")
 
             with Container(id="right_container"):
-                yield Label("Lista Terminados", id="listaTerminados")
+                yield Label("Proyectos Terminados", id="listaTerminados")
                 yield ListView(id="list_terminados")
         
         yield Footer()
