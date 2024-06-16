@@ -16,7 +16,7 @@ from textual.binding import Binding
 from textual.screen import Screen
 from textual.message import Message
 from textual.containers import Container
-from interfaz_ventana import PendientesScreen, En_ProcesoScreen, TerminadosScreen, ObtenerDescripcion
+from interfaz_ventana import PendientesScreen, En_ProcesoScreen, TerminadosScreen, ObtenerDetalles
 
 class ListItemSelected(Message):
     def __init__(self, list_view: ListView, item: ListItem, index: int):
@@ -97,24 +97,25 @@ class TableApp(App):
                 index = i
                 break
 
-        # Obtener la descripción del item seleccionado
-        descripcion = item.query_one(Label).renderable
+        # Obtener el título y la descripción del item seleccionado
+        titulo = item.query_one(Label).renderable
+        descripcion = ""
 
-        # Buscar la descripción correspondiente en la base de datos
+        # Buscar el título y la descripción correspondientes en la base de datos
         if list_view.id == "list_pendientes":
             pendientes = ListaPendientes().obtener_pendientes()
-            descripcion = pendientes[index][2]  # Obtener la descripción usando el índice
-            ObtenerDescripcion(descripcion)
+            titulo, descripcion = pendientes[index][1], pendientes[index][2]  # Obtener título y descripción usando el índice
+            ObtenerDetalles(titulo, descripcion)
             self.push_screen(PendientesScreen())
         elif list_view.id == "list_enProceso":
             enProceso = ListaEnProceso().obtener_en_proceso()
-            descripcion = enProceso[index][2]  # Obtener la descripción usando el índice
-            ObtenerDescripcion(descripcion)
+            titulo, descripcion = enProceso[index][1], enProceso[index][2]  # Obtener título y descripción usando el índice
+            ObtenerDetalles(titulo, descripcion)
             self.push_screen(En_ProcesoScreen())
         elif list_view.id == "list_terminados":
             terminados = ListaTerminados().obtener_terminados()
-            descripcion = terminados[index][2]  # Obtener la descripción usando el índice
-            ObtenerDescripcion(descripcion)
+            titulo, descripcion = terminados[index][1], terminados[index][2]  # Obtener título y descripción usando el índice
+            ObtenerDetalles(titulo, descripcion)
             self.push_screen(TerminadosScreen())
 
 if __name__ == "__main__":
