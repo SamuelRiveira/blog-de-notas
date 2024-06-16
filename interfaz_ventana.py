@@ -1,4 +1,6 @@
-# interfaz_ventana.py
+from coleccionPendientes import ColeccionPendientes
+from coleccionEnProceso import ColeccionEnProceso
+from coleccionTerminado import ColeccionTerminados
 
 from textual.app import ComposeResult
 from textual.screen import Screen
