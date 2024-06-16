@@ -1,0 +1,28 @@
+Screen {
+    align: center middle;
+}
+
+#main_container{
+    width: 70%;
+}
+
+
+#contenedor-Terminado {
+    align: center middle;
+    dock: top;
+    align-horizontal: center;
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    border: round grey 100%;
+}
+
+#Terminado{
+    text-align: center;
+    width: 90%;
+}
+
+#titulo{
+    dock: top;
+    border: ascii grey 50%;
+}

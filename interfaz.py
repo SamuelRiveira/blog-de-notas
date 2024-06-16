@@ -18,22 +18,6 @@ from textual.message import Message
 from textual.containers import Container
 from interfaz_ventana import PendientesScreen, En_ProcesoScreen, TerminadosScreen, ObtenerDetalles
 
-class ListItemSelected(Message):
-    def __init__(self, list_view: ListView, item: ListItem, index: int):
-        super().__init__()
-        self.list_view = list_view
-        self.item = item
-        self.index = index
-
-class ExampleScreen(Screen):
-    def compose(self) -> ComposeResult:
-        yield Header()
-        yield Footer()
-
-    def on_mount(self) -> None:
-        self.query_one(Header).update("Nueva Pantalla")
-        self.query_one(Footer).update("Presiona Q para salir.")
-
 class TableApp(App):
 
     CSS_PATH = "interfaz.tcss"
