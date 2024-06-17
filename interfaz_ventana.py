@@ -134,7 +134,7 @@ class PendientesScreen(Screen):
 
     BINDINGS = [
         Binding(key="q", action="volver", description="Volver", key_display="Q"),
-        Binding(key="e", action="actualizar", description="Actualizar", key_display="R"),
+        Binding(key="r", action="actualizar", description="Actualizar", key_display="R"),
         Binding(key="d", action="borrar", description="Borrar", key_display="D"),
         Binding(key="h", action="insertar", description="Insertar", key_display="H")
     ]
@@ -267,7 +267,7 @@ class En_ProcesoScreen(Screen):
 
     BINDINGS = [
         Binding(key="q", action="volver", description="Volver", key_display="Q"),
-        Binding(key="e", action="actualizar", description="Actualizar", key_display="R"),
+        Binding(key="r", action="actualizar", description="Actualizar", key_display="R"),
         Binding(key="d", action="borrar", description="Borrar", key_display="D"),
         Binding(key="h", action="insertar", description="Insertar", key_display="H")
     ]
@@ -400,7 +400,7 @@ class TerminadosScreen(Screen):
 
     BINDINGS = [
         Binding(key="q", action="volver", description="Volver", key_display="Q"),
-        Binding(key="e", action="actualizar", description="Actualizar", key_display="R"),
+        Binding(key="r", action="actualizar", description="Actualizar", key_display="R"),
         Binding(key="d", action="borrar", description="Borrar", key_display="D"),
         Binding(key="h", action="insertar", description="Insertar", key_display="H")
     ]
