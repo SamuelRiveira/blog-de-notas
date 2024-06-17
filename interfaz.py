@@ -16,7 +16,7 @@ from textual.binding import Binding
 from textual.screen import Screen
 from textual.message import Message
 from textual.containers import Container
-from interfaz_ventana import PendientesScreen, En_ProcesoScreen, TerminadosScreen, ObtenerDetalles
+from interfaz_ventana import PendientesScreen, EnProcesoScreen, TerminadosScreen, ObtenerDetalles
 
 class Notas(App):
     def on_mount(self) -> None:
@@ -99,7 +99,7 @@ class MainScreen(Screen):
             enProceso = ListaEnProceso().obtener_en_proceso()
             id, titulo, descripcion = enProceso[index]  # Obtener ID, título y descripción usando el índice
             ObtenerDetalles(id, titulo, descripcion)
-            self.app.push_screen(En_ProcesoScreen())
+            self.app.push_screen(EnProcesoScreen())
         elif list_view.id == "list_terminados":
             terminados = ListaTerminados().obtener_terminados()
             id, titulo, descripcion = terminados[index]  # Obtener ID, título y descripción usando el índice

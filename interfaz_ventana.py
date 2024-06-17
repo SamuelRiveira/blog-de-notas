@@ -1,3 +1,5 @@
+# interfaz_ventana.py
+
 from coleccionPendientes import ColeccionPendientes
 from coleccionEnProceso import ColeccionEnProceso
 from coleccionTerminado import ColeccionTerminados
@@ -127,6 +129,34 @@ class ConfirmarActualizarPendiente(Screen):
         elif event.button.id == "cancel":
             self.app.pop_screen()
 
+# Clase para confirmar la eliminación de un pendiente
+class ConfirmarBorrarPendiente(Screen):
+
+    CSS_PATH = "confirmacion.tcss"
+
+    def __init__(self, nota_id):
+        super().__init__()
+        self.nota_id = nota_id  # Guardamos el ID de la nota que se quiere borrar
+
+    def compose(self) -> ComposeResult:
+        return [
+            Grid(
+                Label("¿Estás seguro de que quieres borrar la nota?", id="question"),
+                Button("Confirmar", variant="error", id="confirmar"),
+                Button("Cancelar", variant="primary", id="cancel"),
+                id="dialog",
+            )
+        ]
+
+    async def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "confirmar":
+            cp = ColeccionPendientes()
+            cp.borrar(self.nota_id)
+            self.app.pop_screen()  # Cerramos la pantalla de confirmación
+            self.app.pop_screen()  # Volvemos a la pantalla anterior
+        elif event.button.id == "cancel":
+            self.app.pop_screen()  # Solo cerramos la pantalla de confirmación
+
 # Pantalla para mostrar detalles de pendientes
 class PendientesScreen(Screen):
 
@@ -159,7 +189,9 @@ class PendientesScreen(Screen):
         self.app.push_screen(ActualizarPendientes())
 
     def action_borrar(self):
-        pass
+        global current_id
+        # Al borrar, mostramos la pantalla de confirmación con el ID actual
+        self.app.push_screen(ConfirmarBorrarPendiente(current_id))
 
 # Pantalla para insertar nuevas tareas en proceso
 class InsertarEnProceso(Screen):
@@ -261,9 +293,9 @@ class ConfirmarActualizarEnProceso(Screen):
             self.app.pop_screen()
 
 # Pantalla para mostrar detalles de tareas en proceso
-class En_ProcesoScreen(Screen):
+class EnProcesoScreen(Screen):
 
-    CSS_PATH = "ventanaEnProceso.tcss"
+    CSS_PATH = "ventanaPendientes.tcss"
 
     BINDINGS = [
         Binding(key="q", action="volver", description="Volver", key_display="Q"),
@@ -292,10 +324,39 @@ class En_ProcesoScreen(Screen):
         self.app.push_screen(ActualizarEnProceso())
 
     def action_borrar(self):
-        pass
+        global current_id
+        self.app.push_screen(ConfirmarBorrarEnProceso(current_id))
+
+# Clase para confirmar la eliminación de una tarea en proceso
+class ConfirmarBorrarEnProceso(Screen):
+
+    CSS_PATH = "confirmacion.tcss"
+
+    def __init__(self, nota_id):
+        super().__init__()
+        self.nota_id = nota_id
+
+    def compose(self) -> ComposeResult:
+        return [
+            Grid(
+                Label("¿Estás seguro de que quieres borrar la tarea?", id="question"),
+                Button("Confirmar", variant="error", id="confirmar"),
+                Button("Cancelar", variant="primary", id="cancel"),
+                id="dialog",
+            )
+        ]
+
+    async def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "confirmar":
+            cep = ColeccionEnProceso()
+            cep.borrar(self.nota_id)
+            self.app.pop_screen()  # Cerramos la pantalla de confirmación
+            self.app.pop_screen()  # Volvemos a la pantalla anterior
+        elif event.button.id == "cancel":
+            self.app.pop_screen()  # Solo cerramos la pantalla de confirmación
 
 # Pantalla para insertar nuevas tareas terminadas
-class InsertarTerminado(Screen):
+class InsertarTerminados(Screen):
     CSS_PATH = "confirmacion.tcss"
 
     def compose(self) -> ComposeResult:
@@ -313,10 +374,10 @@ class InsertarTerminado(Screen):
         if event.button.id == "cancelar":
             self.app.pop_screen()
         elif event.button.id == "confirmacion":
-            self.app.push_screen(ConfirmarInsertarTerminado(self.titulo_input.value, self.contenido_input.value))
+            self.app.push_screen(ConfirmarInsertarTerminados(self.titulo_input.value, self.contenido_input.value))
 
 # Confirmación para insertar nuevas tareas terminadas
-class ConfirmarInsertarTerminado(Screen):
+class ConfirmarInsertarTerminados(Screen):
     def __init__(self, titulo_input_value, contenido_input_value):
         super().__init__()
         self.titulo_input_value = titulo_input_value
@@ -325,7 +386,7 @@ class ConfirmarInsertarTerminado(Screen):
     def compose(self) -> ComposeResult:
         return [
             Grid(
-                Label("¿Estás seguro de que quieres insertar la nota?", id="question"),
+                Label("¿Estás seguro de que quieres insertar la tarea?", id="question"),
                 Button("Confirmar", variant="error", id="confirmar"),
                 Button("Cancelar", variant="primary", id="cancel"),
                 id="dialog",
@@ -364,20 +425,20 @@ class ActualizarTerminados(Screen):
         if event.button.id == "cancelar":
             self.app.pop_screen()
         elif event.button.id == "actualizar":
-            self.app.push_screen(ConfirmarActualizarTerminado(current_id, self.titulo_input.value, self.contenido_input.value))
+            self.app.push_screen(ConfirmarActualizarTerminados(current_id, self.titulo_input.value, self.contenido_input.value))
 
 # Confirmación para actualizar tareas terminadas
-class ConfirmarActualizarTerminado(Screen):
+class ConfirmarActualizarTerminados(Screen):
     def __init__(self, nota_id, titulo_input_value, contenido_input_value):
         super().__init__()
-        self.nota_id = nota_id  # Usamos nota_id en lugar de id
+        self.nota_id = nota_id
         self.titulo_input_value = titulo_input_value
         self.contenido_input_value = contenido_input_value
 
     def compose(self) -> ComposeResult:
         return [
             Grid(
-                Label("¿Estás seguro de que quieres actualizar la nota?", id="question"),
+                Label("¿Estás seguro de que quieres actualizar la tarea?", id="question"),
                 Button("Confirmar", variant="error", id="confirmar"),
                 Button("Cancelar", variant="primary", id="cancel"),
                 id="dialog",
@@ -393,10 +454,37 @@ class ConfirmarActualizarTerminado(Screen):
         elif event.button.id == "cancel":
             self.app.pop_screen()
 
+class ConfirmarBorrarTerminados(Screen):
+
+    CSS_PATH = "confirmacion.tcss"
+
+    def __init__(self, nota_id):
+        super().__init__()
+        self.nota_id = nota_id
+
+    def compose(self) -> ComposeResult:
+        return [
+            Grid(
+                Label("¿Estás seguro de que quieres borrar la tarea?", id="question"),
+                Button("Confirmar", variant="error", id="confirmar"),
+                Button("Cancelar", variant="primary", id="cancel"),
+                id="dialog",
+            )
+        ]
+
+    async def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "confirmar":
+            ct = ColeccionTerminados()
+            ct.borrar(self.nota_id)
+            self.app.pop_screen()  # Cerramos la pantalla de confirmación
+            self.app.pop_screen()  # Volvemos a la pantalla anterior
+        elif event.button.id == "cancel":
+            self.app.pop_screen()  # Solo cerramos la pantalla de confirmación
+
 # Pantalla para mostrar detalles de tareas terminadas
 class TerminadosScreen(Screen):
 
-    CSS_PATH = "ventanaTerminados.tcss"
+    CSS_PATH = "ventanaPendientes.tcss"
 
     BINDINGS = [
         Binding(key="q", action="volver", description="Volver", key_display="Q"),
@@ -416,7 +504,7 @@ class TerminadosScreen(Screen):
         yield Footer()
 
     def action_insertar(self):
-        self.app.push_screen(InsertarTerminado())
+        self.app.push_screen(InsertarTerminados())
 
     def action_volver(self):
         self.app.pop_screen()
@@ -425,4 +513,5 @@ class TerminadosScreen(Screen):
         self.app.push_screen(ActualizarTerminados())
 
     def action_borrar(self):
-        pass
+        global current_id
+        self.app.push_screen(ConfirmarBorrarTerminados(current_id))
