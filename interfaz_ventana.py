@@ -73,6 +73,7 @@ class ConfirmarInsertarPendiente(Screen):
             cp = ColeccionPendientes()
             cp.insertar(self.titulo_input_value, self.contenido_input_value)
             self.app.pop_screen()
+            self.app.pop_screen()
             self.app.pop_screen()  # Para volver a la pantalla anterior
         elif event.button.id == "cancel":
             self.app.pop_screen()
@@ -124,6 +125,7 @@ class ConfirmarActualizarPendiente(Screen):
         if event.button.id == "confirmar":
             cp = ColeccionPendientes()
             cp.actualizar(self.nota_id, self.titulo_input_value, self.contenido_input_value)
+            self.app.pop_screen()
             self.app.pop_screen()
             self.app.pop_screen()  # Para volver a la pantalla anterior
         elif event.button.id == "cancel":
@@ -236,6 +238,7 @@ class ConfirmarInsertarEnProceso(Screen):
             cep = ColeccionEnProceso()
             cep.insertar(self.titulo_input_value, self.contenido_input_value)
             self.app.pop_screen()
+            self.app.pop_screen()
             self.app.pop_screen()  # Para volver a la pantalla anterior
         elif event.button.id == "cancel":
             self.app.pop_screen()
@@ -287,6 +290,7 @@ class ConfirmarActualizarEnProceso(Screen):
         if event.button.id == "confirmar":
             cep = ColeccionEnProceso()
             cep.actualizar(self.nota_id, self.titulo_input_value, self.contenido_input_value)
+            self.app.pop_screen()
             self.app.pop_screen()
             self.app.pop_screen()  # Para volver a la pantalla anterior
         elif event.button.id == "cancel":
@@ -398,6 +402,7 @@ class ConfirmarInsertarTerminados(Screen):
             ct = ColeccionTerminados()
             ct.insertar(self.titulo_input_value, self.contenido_input_value)
             self.app.pop_screen()
+            self.app.pop_screen()
             self.app.pop_screen()  # Para volver a la pantalla anterior
         elif event.button.id == "cancel":
             self.app.pop_screen()
@@ -449,6 +454,7 @@ class ConfirmarActualizarTerminados(Screen):
         if event.button.id == "confirmar":
             ct = ColeccionTerminados()
             ct.actualizar(self.nota_id, self.titulo_input_value, self.contenido_input_value)
+            self.app.pop_screen()
             self.app.pop_screen()
             self.app.pop_screen()  # Para volver a la pantalla anterior
         elif event.button.id == "cancel":
