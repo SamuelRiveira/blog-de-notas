@@ -16,7 +16,7 @@ from textual.binding import Binding
 from textual.screen import Screen
 from textual.message import Message
 from textual.containers import Container
-from interfaz_ventana import PendientesScreen, EnProcesoScreen, TerminadosScreen, ObtenerDetalles
+from otrasPantallas import PendientesScreen, EnProcesoScreen, TerminadosScreen, ObtenerDetalles
 
 class Notas(App):
     def on_mount(self) -> None:
